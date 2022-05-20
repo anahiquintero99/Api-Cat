@@ -1,28 +1,13 @@
 // URLS TO API
 const API_URL_RANDOM = new URL(
-  'https://api.thecatapi.com/v1/images/search?limit=3&api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
+  'https://api.thecatapi.com/v1/images/search?limit=2&api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
 );
 const API_URL_FAVOURITES = new URL(
-  'https://api.thecatapi.com/v1/favourites?limit=3&api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
+  'https://api.thecatapi.com/v1/favourites?api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
 );
-
-// Image to section of cats
-const imgCat1 = document.getElementById('img1');
-const imgCat2 = document.getElementById('img2');
-
-//Bouttons
-const btn1 = document.getElementById('btn1');
-const btn2 = document.getElementById('btn2');
 
 // ERROR
 const spanError = document.getElementById('error');
-
-//  POST
-const section = document.getElementById('favouritesCat');
-const article = document.createElement('article');
-const img = document.createElement('img');
-const btn = document.createElement('button');
-const btnText = document.createTextNode('Out favourites cats');
 
 async function loadRandomCats() {
   try {
@@ -34,6 +19,14 @@ async function loadRandomCats() {
     if (response.status !== 200) {
       spanError.innerHTML = 'Hubo un error ' + response.status + data.message;
     } else {
+      // Image to section of cats
+      const imgCat1 = document.getElementById('img1');
+      const imgCat2 = document.getElementById('img2');
+
+      //Bouttons
+      const btn1 = document.getElementById('btn1');
+      const btn2 = document.getElementById('btn2');
+
       imgCat1.src = data[0].url;
       imgCat2.src = data[1].url;
 
@@ -56,7 +49,14 @@ async function loadFavouritesCat() {
       spanError.innerHTML = 'HUbo un error ' + response.status + data.message;
     } else {
       data.forEach((cat) => {
+        const section = document.getElementById('favouriteCat');
+        const article = document.createElement('article');
+        const img = document.createElement('img');
+        const btn = document.createElement('button');
+        const btnText = document.createTextNode('Out favourites cats');
+
         img.src = cat.image.url;
+        img.width = 150;
         btn.appendChild(btnText);
         article.appendChild(img);
         article.appendChild(btn);
@@ -92,4 +92,3 @@ async function saveFavouriteCat(id) {
 
 loadRandomCats();
 loadFavouritesCat();
-saveFavouriteCat();
