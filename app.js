@@ -5,10 +5,8 @@ const API_URL_RANDOM = new URL(
 const API_URL_FAVOURITES = new URL(
   'https://api.thecatapi.com/v1/favourites?api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
 );
-const API_URL_Favourites_DELETE = (id) =>
-  new URL(
-    'https://api.thecatapi.com/v1/favourites/${id}?api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
-  );
+const API_URL_FAVOURITES_DELETE = (id) =>
+  'https://api.thecatapi.com/v1/favourites/${id}?api_key=f098c277-9d2a-44ef-b00e-9135d244716e';
 
 // ERROR
 const spanError = document.getElementById('error');
@@ -91,20 +89,24 @@ async function saveFavouriteCat(id) {
 
     if (response.status !== 200) {
       spanError.innerHTML = 'Hubo un error ' + response.status + data.message;
+    } else {
+      console.log('Save in favourites');
+      loadFavouritesCat();
     }
   } catch (error) {}
 }
 
 async function deleteFavouriteCat(id) {
-  const response = await fetch(API_URL_Favourites_DELETE, {
+  const response = await fetch(API_URL_FAVOURITES_DELETE(id), {
     method: 'DELETE',
   });
   const data = await response.json();
 
-  if (response.status != 200) {
-    spanError.innerHTML = 'hubo un error: ' + response.status + data.message;
+  if (response.status !== 200) {
+    spanError.innerHTML = 'Hubo un error: ' + response.status + data.message;
   } else {
-    console.log('Cat Delete');
+    console.log('Delete of favourites');
+    loadFavouritesCat();
   }
 }
 

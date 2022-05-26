@@ -1,0 +1,14 @@
+* {
+  background-color: antiquewhite;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 300px 300px;
+}
+
+
+.containeer-favourites {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}
