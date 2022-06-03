@@ -3,10 +3,12 @@ const API_URL_RANDOM = new URL(
   'https://api.thecatapi.com/v1/images/search?limit=2&api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
 );
 const API_URL_FAVOURITES = new URL(
-  'https://api.thecatapi.com/v1/favourites?api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
+  'https://api.thecatapi.com/v1/favourites/?api_key=f098c277-9d2a-44ef-b00e-9135d244716e',
 );
 const API_URL_FAVOURITES_DELETE = (id) =>
-  'https://api.thecatapi.com/v1/favourites/${id}?api_key=f098c277-9d2a-44ef-b00e-9135d244716e';
+  new URL(
+    `https://api.thecatapi.com/v1/favourites/${id}?api_key=f098c277-9d2a-44ef-b00e-9135d244716e`,
+  );
 
 // ERROR
 const spanError = document.getElementById('error');
@@ -50,15 +52,20 @@ async function loadFavouritesCat() {
     if (response.status !== 200) {
       spanError.innerHTML = 'HUbo un error ' + response.status + data.message;
     } else {
+      const section = document.getElementById('favouriteCat');
+      section.innerHTML = '';
+      const h2 = document.createElement('h2');
+      const h2Text = document.createTextNode('Favourite cats');
+      h2.appendChild(h2Text);
+      section.appendChild(h2);
+
       data.forEach((cat) => {
-        const section = document.getElementById('favouriteCat');
         const article = document.createElement('article');
         const img = document.createElement('img');
         const btn = document.createElement('button');
         const btnText = document.createTextNode('Out favourites cats');
 
         img.src = cat.image.url;
-        img.width = 150;
         btn.appendChild(btnText);
         btn.onclick = () => deleteFavouriteCat(cat.id);
         article.appendChild(img);

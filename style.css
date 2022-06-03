@@ -5,10 +5,33 @@
 .container {
   display: grid;
   grid-template-columns: 300px 300px;
+  gap: 30px;
+  justify-content: center;
 }
 
-
-.containeer-favourites {
+#favouriteCat {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 300px 300px 300px;
+  gap: 30px;
+  justify-content: center;
+}
+
+.item-cat {
+  display: grid;
+  grid-template-rows: 200px 30px;
+}
+
+.item-cat img {
+  width: 150px;
+  height: 150px;
+}
+
+#favouriteCat article{
+  display: grid;
+  grid-template-rows: 200px 30px;
+}
+
+#favouriteCat img {
+  width: 150px;
+  height: 180px;
 }
